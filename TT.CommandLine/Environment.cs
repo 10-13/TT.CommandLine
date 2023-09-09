@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using TT.CommandLine.Options;
 
 namespace TT.CommandLine;
 
 public sealed class Environment 
 {         
-	public List<Option> Options { get; } = new List<Option>();
+	public List<DefaultOption> Options { get; } = new List<DefaultOption>();
 	public List<IParser> Parsers { get; } = new List<IParser>();
 	
 	public Environment() { }
 	
-	public Option FindOption(string Name)
+	public DefaultOption FindOption(string Name)
 	{
-		Option r = null;
+		DefaultOption r = null;
 		
 		foreach(var opt in Options)
 			if(opt.Name.StartsWith(Name))

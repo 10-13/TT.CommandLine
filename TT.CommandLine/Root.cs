@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using TT.CommandLine;
 using System.Reflection.Metadata;
+using TT.CommandLine.Options;
 
 namespace TT.CommandLine;
 
@@ -58,7 +58,7 @@ public sealed class Root
 		
 		int optArgs = 0;
 		List<string> args = new List<string>(3);
-		Option opt = null;
+		DefaultOption opt = null;
 		for(int i = 0;i < dIndex;i++)
 		{
 			if(sourceStack[i].StartsWith("-"))

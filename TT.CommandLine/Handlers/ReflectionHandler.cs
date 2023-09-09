@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using TT.CommandLine.Hadlers;
 using System.Reflection;
 
-namespace TT.CommandLine.Hadlers;
+namespace TT.CommandLine.Handlers;
 
 public class ReflectionHandler : IHandler
 {     
@@ -21,7 +20,7 @@ public class ReflectionHandler : IHandler
 			Description = function.Method.Name;
 		if(ArgumentDescription == null)
 		{
-			ArgumentDescription = function.Method.GetParameters().Select<ParameterInfo,string>((arg)=>arg.Name.PadRight(10,' ')+arg.ParameterType.Name.PadRight(10,' ')+(arg.IsOptional?"[OPTIONAL] ":"")+(arg.HasDefaultValue?"[DEFAULT_VALUE] ":"")).ToArray();
+			ArgumentDescription = function.Method.GetParameters().Select((arg)=>arg.Name.PadRight(10,' ')+arg.ParameterType.Name.PadRight(10,' ')+(arg.IsOptional?"[OPTIONAL] ":"")+(arg.HasDefaultValue?"[DEFAULT_VALUE] ":"")).ToArray();
 		}
 		ArgumentsCount = function.Method.GetParameters().Where((a) => !a.HasDefaultValue).Count();
 		_func = function;
@@ -41,4 +40,6 @@ public class ReflectionHandler : IHandler
 					throw new Exception("Too few arguments given");
 		_func.DynamicInvoke(_args);
 	}
+
+	public MethodInfo GetMethodInfo() => _func.Method;
 }

@@ -1,7 +1,8 @@
 ﻿using TT.CommandLine;
+using TT.CommandLine.Options;
 using TT.CommandLine.Parsers;
 
-using RHandler = TT.CommandLine.Hadlers.ReflectionHandler;
+using RHandler = TT.CommandLine.Handlers.ReflectionHandler;
 
 Root root = new Root();
 
@@ -11,10 +12,7 @@ CustomParser intParser = new CustomParser(typeof(int), (a)=>int.Parse(a));
 root.Environment.Parsers.Add(intParser);
 
 
-Option printStr = new Option("p_str")
-{
-    Handler = new RHandler((string str) => Console.WriteLine("[PRINT STR OUT]:\n" + str))
-};
+DefaultOption printStr = new DefaultOption("p_str", new RHandler((string str) => Console.WriteLine("[PRINT STR OUT]:\n" + str)));
 root.Environment.Options.Add(printStr);
 
 
